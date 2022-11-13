@@ -1,0 +1,40 @@
+apiVersion: apps/v1  #Deployment
+kind: Deployment
+metadata:
+  name: java-springboot-application-deployment
+  labels:
+    app: springboot-webapp
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: springboot-webapp
+  template:
+    metadata:
+      labels:
+        app: springboot-webapp
+    spec:
+      containers:
+      - name: springboot-web-application
+        image: myacrregistry1993.azurecr.io/radhikareddygn93/java-spring-boot-application:#{Build.BuildId}#
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 8080
+        
+-----
+       
+apiVersion: v1  #Service
+kind: Service
+metadata:
+ name: java-springboot-service
+  labels:
+    app: springboot-webapp
+spec: 
+  ports:
+  - name: http
+    port: 80
+    protocol: TCP
+    targetPort: 8085
+  type: LoadBalancer
+  selector:
+    app: springboot-webapp     
