@@ -19,7 +19,7 @@ spec:
         image: myacrregistry1993.azurecr.io/radhikareddygn93/java-spring-boot-application:#{Build.BuildId}#
         imagePullPolicy: Always
         ports:
-        - containerPort: 8080
+        - containerPort: 80
         
 -----
        
